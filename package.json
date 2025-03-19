@@ -5,7 +5,8 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "bun run --watch src/index.ts",
-    "start": "bun run src/index.ts"
+    "build": "bun build src/index.ts --outdir=build",
+    "start": "bun run build/index.js"
   },
   "dependencies": {
     "cheerio": "^1.0.0",
