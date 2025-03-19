@@ -1,0 +1,21 @@
+{
+  "name": "music-api",
+  "version": "0.1.0",
+  "description": "Melon API with web scraping",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "hono": "^3.11.0",
+    "nanoid": "^5.1.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.2",
+    "bun-types": "latest",
+    "typescript": "^5.2.2"
+  },
+  "type": "module"
+}
