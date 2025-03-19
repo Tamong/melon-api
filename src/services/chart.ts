@@ -1,5 +1,6 @@
 import { MelonScraper } from "@/services/scraper";
 import { ChartType, ChartTypes, MelonTrack } from "@/types/charts";
+import { CacheService } from "@/utils/cache";
 
 export class MelonChartService {
   private scraper: MelonScraper;
@@ -134,14 +135,6 @@ export class MelonChartService {
   }
 }
 
-// Cache storage
-interface CacheItem {
-  data: MelonTrack[];
-  timestamp: number;
-}
-
-const cache: Record<string, CacheItem> = {};
-const CACHE_TTL = 1 * 60 * 1000; // 1 minute in milliseconds
 const chartService = new MelonChartService();
 
 /**
@@ -159,25 +152,7 @@ export async function getMelonChart(chartType: string): Promise<MelonTrack[]> {
     );
   }
 
-  const now = Date.now();
-
-  // Check if we have a valid cache entry
-  if (cache[chartType] && now - cache[chartType].timestamp < CACHE_TTL) {
-    console.log(`Using cached data for ${chartType} chart`);
-    return cache[chartType].data;
-  }
-
-  // Otherwise fetch fresh data
-  console.log(
-    `Cache miss or expired for ${chartType} chart, fetching fresh data`
+  return CacheService.getOrFetch<MelonTrack[]>(`chart_${chartType}`, () =>
+    chartService.getChart(chartType)
   );
-  const data = await chartService.getChart(chartType);
-
-  // Update cache
-  cache[chartType] = {
-    data,
-    timestamp: now,
-  };
-
-  return data;
 }

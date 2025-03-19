@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { getMelonChart } from "@/services/charts";
+import { getMelonChart } from "@/services/chart";
 
 const charts = new Hono();
 
