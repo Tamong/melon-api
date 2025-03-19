@@ -21,6 +21,7 @@ app.get("/", (c) => {
       "/api/chart/week",
       "/api/chart/month",
       "/api/song/:songId",
+      "/api/album/:albumId",
     ],
   });
 });

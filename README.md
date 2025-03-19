@@ -36,6 +36,10 @@ Open http://localhost:3000
 
 - `GET /api/song/:songId` - Returns detailed information about a specific song
 
+### Album Endpoint
+
+- `GET /api/album/:albumId` - Returns detailed information about a specific album
+
 ### Response Format
 
 Each chart endpoint returns an array of track objects with the following structure:
@@ -81,6 +85,56 @@ The song endpoint returns detailed information about a specific song:
       "roles": ["작사", "작곡"]
     }
   ]
+}
+```
+
+The album endpoint returns detailed information about a specific album:
+
+```json
+{
+  "albumId": "67890",
+  "type": "정규",
+  "title": "Album Title",
+  "artists": [
+    {
+      "name": "Artist Name",
+      "id": "12345"
+    }
+  ],
+  "releaseDate": "2023.01.01",
+  "genre": "K-POP",
+  "publisher": "Example Entertainment",
+  "agency": "Example Agency",
+  "imageUrl": "https://example.com/album-cover.jpg",
+  "songs": [
+    {
+      "songId": "56789",
+      "title": "First Track",
+      "artists": [
+        {
+          "name": "Artist Name",
+          "id": "12345"
+        }
+      ],
+      "isTitle": true
+    },
+    {
+      "songId": "56790",
+      "title": "Second Track (feat. Another Artist)",
+      "artists": [
+        {
+          "name": "Artist Name",
+          "id": "12345"
+        },
+        {
+          "name": "Another Artist",
+          "id": "67890"
+        }
+      ],
+      "isTitle": false
+    }
+  ],
+  "introduction": "This is an example album introduction text.\nIt can contain multiple lines describing the album."
 }
 ```
 
@@ -132,6 +186,17 @@ import { getSongData } from "./src/services/song";
 async function fetchSongDetails() {
   const songData = await getSongData("12345678");
   console.log(songData);
+}
+```
+
+```ts
+// For album data
+import { getAlbumData } from "./src/services/album";
+
+// Usage in an async function
+async function fetchAlbumDetails() {
+  const albumData = await getAlbumData("12345678");
+  console.log(albumData);
 }
 ```
 
