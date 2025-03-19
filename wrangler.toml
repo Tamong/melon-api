@@ -1,0 +1,6 @@
+name = "melon-api"
+compatibility_date = "2025-03-19"
+main = "./build/index.js"
+
+[build]
+command = "bun run build"

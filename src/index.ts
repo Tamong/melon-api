@@ -25,11 +25,4 @@ app.get("/", (c) => {
   });
 });
 
-// Start the server
-const port = process.env.PORT || 3000;
-console.log(`Melon Chart API server running on port ${port}`);
-
-export default {
-  port,
-  fetch: app.fetch,
-};
+export default app;
