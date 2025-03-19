@@ -1,4 +1,4 @@
-# Melon Music Charts API
+# Melon Music API
 
 An API for retrieving music data from Melon, a South Korean music streaming service, with web scraping.
 
