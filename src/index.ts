@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { analytics } from "@/middleware/analytics";
-import { chartRoutes } from "@/routes";
+import routes from "@/routes";
 
 const app = new Hono();
 
@@ -8,18 +8,19 @@ const app = new Hono();
 app.use("/api/*", (c, next) => analytics(c, next));
 
 // Routes
-app.route("/api", chartRoutes);
+app.route("/api", routes);
 
 // Base route
 app.get("/", (c) => {
   return c.json({
-    message: "Music Charts API",
+    message: "Melon Music API",
     endpoints: [
       "/api/chart/top100",
       "/api/chart/hot100",
       "/api/chart/day",
       "/api/chart/week",
       "/api/chart/month",
+      "/api/song/:songId",
     ],
   });
 });

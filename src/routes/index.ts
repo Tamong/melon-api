@@ -1,7 +1,11 @@
 import { Hono } from "hono";
-import { chartRoutes } from "@/routes/charts";
+import { chartRoutes } from "./chart";
+import { songRoutes } from "./song";
 
-const api = new Hono();
-api.route("/chart", chartRoutes);
+const routes = new Hono();
 
-export { api as chartRoutes };
+routes.route("/chart", chartRoutes);
+routes.route("/song", songRoutes);
+
+export { chartRoutes, songRoutes };
+export default routes;

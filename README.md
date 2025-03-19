@@ -32,6 +32,10 @@ Open http://localhost:3000
 - `GET /api/chart/week` - Returns the Weekly chart
 - `GET /api/chart/month` - Returns the Monthly chart
 
+### Song Endpoint
+
+- `GET /api/song/:songId` - Returns detailed information about a specific song
+
 ### Response Format
 
 Each chart endpoint returns an array of track objects with the following structure:
@@ -49,6 +53,34 @@ Each chart endpoint returns an array of track objects with the following structu
     "direction": "up",
     "value": 2
   }
+}
+```
+
+The song endpoint returns detailed information about a specific song:
+
+```json
+{
+  "title": "Song Title",
+  "artists": [
+    {
+      "name": "Artist Name",
+      "id": "12345"
+    }
+  ],
+  "album": {
+    "name": "Album Name",
+    "id": "67890"
+  },
+  "releaseDate": "2023.01.01",
+  "genre": "댄스",
+  "lyrics": "Song lyrics here...",
+  "producers": [
+    {
+      "name": "Producer Name",
+      "id": "54321",
+      "roles": ["작사", "작곡"]
+    }
+  ]
 }
 ```
 
@@ -75,25 +107,33 @@ The API includes an analytics middleware that tracks:
 
 Analytics data is currently logged to the console but can be configured to send to a database or logging service.
 
-### Direct Chart Access
+### Direct Data Access
 
-You can use the chart scraping functionality directly without running the API server. This is useful for integrating the chart data into your own applications:
+You can use the chart and song scraping functionality directly without running the API server. This is useful for integrating the data into your own applications:
 
 ```ts
-import { getMelonChart } from "./src/services/charts";
+// For chart data
+import { getMelonChart } from "./src/services/chart";
 
 // Usage in an async function
 async function fetchTopChart() {
   const chartData = await getMelonChart("top100");
   console.log(chartData);
 }
-
-// or with top-level await
-const chartData = await getMelonChart("top100");
-console.log(chartData);
 ```
 
 Available chart types: `top100`, `hot100`, `day`, `week`, `month`
+
+```ts
+// For song data
+import { getSongData } from "./src/services/song";
+
+// Usage in an async function
+async function fetchSongDetails() {
+  const songData = await getSongData("12345678");
+  console.log(songData);
+}
+```
 
 ## Technical Details
 
