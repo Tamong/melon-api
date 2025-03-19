@@ -75,6 +75,26 @@ The API includes an analytics middleware that tracks:
 
 Analytics data is currently logged to the console but can be configured to send to a database or logging service.
 
+### Direct Chart Access
+
+You can use the chart scraping functionality directly without running the API server. This is useful for integrating the chart data into your own applications:
+
+```ts
+import { getMelonChart } from "./src/services/charts";
+
+// Usage in an async function
+async function fetchTopChart() {
+  const chartData = await getMelonChart("top100");
+  console.log(chartData);
+}
+
+// or with top-level await
+const chartData = await getMelonChart("top100");
+console.log(chartData);
+```
+
+Available chart types: `top100`, `hot100`, `day`, `week`, `month`
+
 ## Technical Details
 
 - Built with Hono.js - a lightweight web framework

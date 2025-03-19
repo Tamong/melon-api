@@ -1,12 +1,10 @@
 import { Hono } from "hono";
-import { logger } from "hono/logger";
 import { analytics } from "@/middleware/analytics";
 import { chartRoutes } from "@/routes";
 
 const app = new Hono();
 
 // Middleware
-//app.use("*", logger());
 app.use("/api/*", (c, next) => analytics(c, next));
 
 // Routes
