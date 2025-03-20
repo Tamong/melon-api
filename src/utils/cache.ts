@@ -1,3 +1,5 @@
+import { Result, ok } from "neverthrow";
+
 /**
  * Generic cache item interface
  */
@@ -52,6 +54,45 @@ export class CacheService {
     };
 
     return data;
+  }
+
+  /**
+   * Get or fetch data with caching, supporting Result type
+   * @param key The cache key
+   * @param fetchFn The function to call to fetch fresh data (returns Result)
+   * @param ttl Optional TTL for this specific item
+   * @returns The Result, either from cache or freshly fetched
+   */
+  static async getOrFetchResult<T, E = Error>(
+    key: string,
+    fetchFn: () => Promise<Result<T, E>>,
+    ttl: number = CacheService.defaultTTL
+  ): Promise<Result<T, E>> {
+    const now = Date.now();
+
+    // Check if we have a valid cache entry
+    if (
+      CacheService.cache[key] &&
+      now - CacheService.cache[key].timestamp < ttl
+    ) {
+      console.log(`Using cached Result for ${key}`);
+      // Return the cached data wrapped in an ok Result
+      return ok(CacheService.cache[key].data) as Result<T, E>;
+    }
+
+    // Otherwise fetch fresh data
+    console.log(`Cache miss or expired for ${key}, fetching fresh Result`);
+    const result = await fetchFn();
+
+    // Only cache successful results
+    if (result.isOk()) {
+      CacheService.cache[key] = {
+        data: result.value,
+        timestamp: now,
+      };
+    }
+
+    return result;
   }
 
   /**
