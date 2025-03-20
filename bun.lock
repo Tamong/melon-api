@@ -5,14 +5,14 @@
       "name": "melon-api",
       "dependencies": {
         "cheerio": "^1.0.0",
-        "hono": "^3.11.0",
+        "hono": "^4.7.5",
         "nanoid": "^5.1.5",
         "neverthrow": "^8.2.0",
       },
       "devDependencies": {
-        "@types/node": "^20.8.2",
+        "@types/node": "^20.17.24",
         "bun-types": "latest",
-        "typescript": "^5.2.2",
+        "typescript": "^5.8.2",
       },
     },
   },
@@ -47,7 +47,7 @@
 
     "entities": ["entities@4.5.0", "", {}, "sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw=="],
 
-    "hono": ["hono@3.12.12", "", {}, "sha512-5IAMJOXfpA5nT+K0MNjClchzz0IhBHs2Szl7WFAhrFOsbtQsYmNynFyJRg/a3IPsmCfxcrf8txUGiNShXpK5Rg=="],
+    "hono": ["hono@4.7.5", "", {}, "sha512-fDOK5W2C1vZACsgLONigdZTRZxuBqFtcKh7bUQ5cVSbwI2RWjloJDcgFOVzbQrlI6pCmhlTsVYZ7zpLj4m4qMQ=="],
 
     "htmlparser2": ["htmlparser2@9.1.0", "", { "dependencies": { "domelementtype": "^2.3.0", "domhandler": "^5.0.3", "domutils": "^3.1.0", "entities": "^4.5.0" } }, "sha512-5zfg6mHUoaer/97TxnGpxmbR7zJtPwIYFMZ/H5ucTlPZhKvtum05yiPK3Mgai3a0DyVxv7qYqoweaEd2nrYQzQ=="],
 
