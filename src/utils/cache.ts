@@ -39,12 +39,10 @@ export class CacheService {
       CacheService.cache[key] &&
       now - CacheService.cache[key].timestamp < ttl
     ) {
-      console.log(`Using cached data for ${key}`);
       return CacheService.cache[key].data;
     }
 
     // Otherwise fetch fresh data
-    console.log(`Cache miss or expired for ${key}, fetching fresh data`);
     const data = await fetchFn();
 
     // Update cache
@@ -75,13 +73,11 @@ export class CacheService {
       CacheService.cache[key] &&
       now - CacheService.cache[key].timestamp < ttl
     ) {
-      console.log(`Using cached Result for ${key}`);
       // Return the cached data wrapped in an ok Result
       return ok(CacheService.cache[key].data) as Result<T, E>;
     }
 
     // Otherwise fetch fresh data
-    console.log(`Cache miss or expired for ${key}, fetching fresh Result`);
     const result = await fetchFn();
 
     // Only cache successful results

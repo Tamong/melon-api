@@ -15,7 +15,7 @@ song.get("/:songId", async (c) => {
   return result.match(
     (data) => c.json(data),
     (error) => {
-      console.error("Error fetching song data:", error);
+      console.error("Error fetching song data:", error.message);
       return c.json({ error: error.message }, 404);
     }
   );

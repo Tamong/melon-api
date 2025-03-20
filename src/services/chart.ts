@@ -8,7 +8,8 @@ export class MelonChartService {
   public CHART_TYPES: ChartTypes;
 
   constructor() {
-    this.scraper = new MelonScraper("https://www.melon.com");
+    // Fix: Pass an object with baseUrl property instead of a string
+    this.scraper = new MelonScraper();
 
     this.CHART_TYPES = {
       top100: "/chart",
@@ -167,17 +168,48 @@ export async function getMelonChart(
 ): Promise<Result<MelonTrack[], Error>> {
   // Validate chart type
   if (!Object.keys(chartService.CHART_TYPES).includes(chartType)) {
-    return err(
-      new Error(
-        `Invalid chart type. Choose from: ${Object.keys(
-          chartService.CHART_TYPES
-        ).join(", ")}`
-      )
-    );
+    const errorMessage = `Invalid chart type '${chartType}'. Choose from: ${Object.keys(
+      chartService.CHART_TYPES
+    ).join(", ")}`;
+    console.error(`Error: ${errorMessage}`);
+    return err(new Error(errorMessage));
   }
 
-  return await CacheService.getOrFetchResult<MelonTrack[]>(
-    `chart_${chartType}`,
-    () => chartService.getChart(chartType)
-  );
+  try {
+    return await CacheService.getOrFetchResult<MelonTrack[]>(
+      `chart_${chartType}`,
+      async () => {
+        try {
+          const chartResult = await chartService.getChart(chartType);
+          if (chartResult.isErr()) {
+            console.error(
+              `Error fetching ${chartType} chart:`,
+              chartResult.error
+            );
+          }
+          return chartResult;
+        } catch (error) {
+          console.error(
+            `Unexpected error fetching ${chartType} chart:`,
+            error instanceof Error ? error.message : String(error)
+          );
+          return err(
+            error instanceof Error
+              ? error
+              : new Error(`Failed to fetch ${chartType} chart`)
+          );
+        }
+      }
+    );
+  } catch (cacheError) {
+    console.error(
+      `Cache service error for ${chartType} chart:`,
+      cacheError instanceof Error ? cacheError.message : String(cacheError)
+    );
+    return err(
+      cacheError instanceof Error
+        ? cacheError
+        : new Error("Cache service failed")
+    );
+  }
 }

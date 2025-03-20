@@ -15,7 +15,7 @@ album.get("/:albumId", async (c) => {
   return result.match(
     (data) => c.json(data),
     (error) => {
-      console.error("Error fetching album data:", error);
+      console.error("Error fetching album data:", error.message);
       return c.json({ error: error.message }, 404);
     }
   );

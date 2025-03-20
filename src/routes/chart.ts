@@ -11,7 +11,7 @@ chart.get("/:chartType", async (c) => {
   return result.match(
     (data) => c.json(data),
     (error) => {
-      console.error("Error fetching chart data:", error);
+      console.error("Error fetching chart data:", error.message);
       return c.json({ error: error.message }, 404);
     }
   );

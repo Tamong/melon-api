@@ -1,11 +1,14 @@
 import { Hono } from "hono";
 import { analytics } from "@/middleware/analytics";
 import routes from "@/routes";
+import { logger } from "hono/logger";
 
 const app = new Hono();
 
 // Middleware
-app.use("/api/*", (c, next) => analytics(c, next));
+app.use("*", logger());
+
+// app.use("/api/*", (c, next) => analytics(c, next)); // Enable if you want to see Analytics
 
 // Routes
 app.route("/api", routes);
