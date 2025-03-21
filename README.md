@@ -144,6 +144,30 @@ The album endpoint returns detailed information about a specific album:
 
 Chart data is cached for 1 minute to improve performance and reduce load on the Melon website.
 
+### Chart Prefetching
+
+The API includes a prefetching system that automatically refreshes chart data in the background:
+
+- Prevents "cold fetches" by keeping the cache warm
+- Especially useful in standalone server mode
+- Configurable through environment variables:
+  - `ENABLE_CHART_PREFETCH`: Set to "true" to enable prefetching (default: false)
+  - `PREFETCH_INTERVAL_MS`: Time between prefetch operations in milliseconds (default: 60000 = 1 minute)
+
+To enable prefetching, create a `.env` file based on the `.env.example` template and set the appropriate values:
+
+```env
+ENABLE_CHART_PREFETCH=true
+PREFETCH_INTERVAL_MS=60000
+```
+
+When prefetching is enabled, the server will:
+
+- Automatically fetch all chart types on startup
+- Periodically refresh chart data at the configured interval
+- Log success/failure messages for each prefetch operation
+- Properly shutdown the prefetcher when the server terminates
+
 ### Analytics
 
 The API includes an analytics middleware that tracks:
