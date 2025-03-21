@@ -1,4 +1,3 @@
-import * as cheerio from "cheerio";
 import { MelonScraper } from "./scraper";
 import { CacheService } from "@/utils/cache";
 import { Result, ok, err } from "neverthrow";
@@ -16,6 +15,7 @@ export interface SongData {
   releaseDate: string;
   genre: string;
   lyrics: string;
+  imageUrl: string;
   producers: Array<{
     name: string;
     id: string;
@@ -83,6 +83,9 @@ export async function getSongData(
         const genreElement = $(".section_info .list dd").eq(2);
         const genre = genreElement.length ? genreElement.text().trim() : "";
 
+        // Extract image URL from the album cover
+        const imageUrl = $(".section_info .thumb img").attr("src") || "";
+
         // Extract lyrics
         let lyrics = "";
         $(".section_lyric .lyric").each((i, el) => {
@@ -143,6 +146,7 @@ export async function getSongData(
           },
           releaseDate,
           genre,
+          imageUrl,
           lyrics,
           producers,
         });
