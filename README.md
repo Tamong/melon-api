@@ -206,3 +206,23 @@ async function fetchAlbumDetails() {
 - Uses Cheerio for HTML parsing and web scraping
 - Written in TypeScript
 - Runs on Bun runtime for optimal performance
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+**Note:** While this code is MIT licensed, usage of this API to access Melon's data is subject to the legal disclaimer below.
+
+## Legal Disclaimer
+
+This project is not affiliated with, endorsed by, or in any way officially connected to Melon Music or Kakao M Corp.
+
+**Important Notice:**
+
+- This API relies on web scraping techniques as Melon does not provide a public API
+- The functionality may break if Melon changes their website structure
+- This project may be discontinued at any time if requested by Melon
+- Users of this API should review Melon's Terms of Service before use
+- Use responsibly and avoid excessive requests that could impact Melon's services
+
+By using this API, you acknowledge and accept these limitations and risks.
