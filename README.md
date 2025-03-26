@@ -77,6 +77,7 @@ The song endpoint returns detailed information about a specific song:
   },
   "releaseDate": "2023.01.01",
   "genre": "댄스",
+  "imageUrl": "https://example.com/album-cover.jpg",
   "lyrics": "Song lyrics here...",
   "producers": [
     {
